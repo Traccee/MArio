@@ -50,7 +50,7 @@ let gameOver = false;
         MarioRightImg.src = "./mario-right.png";
         Mario.img = MarioRightImg;
         MarioRightImg.onload = function() {
-        context.drawImage(Mario.img, Mario.x, Mario.y, Mario.width, Mario.height); //Fills the Mario image by the amount of px I gave earlier 
+        context.drawImage(Mario.img ,   Mario.x ,    Mario.y ,    Mario.width ,   Mario.height); //Fills the Mario image by the amount of px I gave earlier 
     }
 
         MarioLeftImg = new Image();
@@ -95,7 +95,7 @@ let gameOver = false;
     gameOver = true;} //if mario fallsoff game over 
    
    
-    context.drawImage(Mario.img, Mario.x, Mario.y, Mario.width, Mario.height);
+    context.drawImage(Mario.img , Mario.x , Mario.y , Mario.width , Mario.height);
 
 
 
@@ -126,11 +126,11 @@ let gameOver = false;
     //score
     updateScore();
     context.fillStyle = "black";
-    context.font = "16px sans-serif";
-    context.fillText(score, 5, 20);
+    context.font = "16px";
+    context.fillText(score, 2, 20);
 
     if (gameOver) {
-        context.fillText("Game Over: Press 'Space' to Restart", boardWidth / 7, boardHeight * 7 / 8);
+        context.fillText("Game Over:'Space'", boardWidth / 7, boardHeight * 7 / 8);
     }
     }
 
@@ -179,19 +179,16 @@ function placePlatforms() {
         width: platformWidth,
         height: platformHeight
     }
-
     platformArray.push(platform);
-
     for (let i = 0; i < 7; i++) { //used to create more space between the platforms
-        let randomX = Math.floor(Math.random() * boardWidth * 3 / 4); //random x position for each platform, math random will pick a number 0-1 and multiply it by boardwidth
+        let randomX = Math.floor(Math.random() * boardWidth * 3 / 5); //random x position for each platform, math random will pick a number 0-1 and multiply it by boardwidth
         let platform = {
             img: platformImg,
             x: randomX,
-            y: boardHeight - 75 * i - 150, //will create a random space between platforms within the for loop of 75 x [1,2,3,4,5,6] - 150 on the y axis 
+            y: boardHeight - 80 * i - 120, //will create a random space between platforms within the for loop of 80 x [1,2,3,4,5,6] - 120 on the y axis 
             width: platformWidth,
             height: platformHeight
         }
-
         platformArray.push(platform);
     }
     }
@@ -211,21 +208,16 @@ function newPlatform() {
 
     platformArray.push(platform);
     }
-
-
-
-
 function detectCollision(a, b) { //detects collision between two rectangles will call mario as a and platform as b 
-    return a.x < b.x + b.width &&   //a's top left corner doesn't reach b's top right corner
-           a.x + a.width > b.x &&   //a's top right corner passes b's top left corner
-           a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
-           a.y + a.height > b.y;    //a's bottom left corner passes b's top left corner
-    }
-
+    return a.x < b.x + b.width &&   // top left corner doesnt reach that b corner
+           a.x + a.width > b.x &&   // top right coner of a passes its b counter part
+           a.y < b.y + b.height &&  // as top left doesnt reach top left b
+           a.y + a.height > b.y;    // a botom vonner passes b nottom coner
+}
 
 
 function updateScore() {
-    let points = Math.floor(50 * Math.random()); //(0-1) * 50 --> (0-50)
+    let points = Math.floor(50); //will make that score go up when he jumps higher
     if (velocityY < 0) { //negative going up
         maxScore += points;
         if (score < maxScore) {
