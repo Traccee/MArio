@@ -197,7 +197,7 @@ function placePlatforms() {
 
 
 function newPlatform() {
-    let randomX = Math.floor(Math.random() * boardWidth * 4 / 5); //(0-1) * boardWidth*3/4
+    let randomX = Math.floor(Math.random() * boardWidth * 4 / 5); //(0-1) * boardWidth*4/4
     let platform = {
         img: platformImg,
         x: randomX,
